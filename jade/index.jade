@@ -1,0 +1,38 @@
+mixin post(text,time)
+	.post
+		p!= text
+		.time
+			p Опубликованно в&nbsp;
+				span!=time
+			button.btn.btn-danger Удалить
+doctype
+html
+	head(lang="ru")
+	meta(charset="UTF-8")
+	link(rel="stylesheet" href="./css/main.css")
+	title Заметки
+body
+	aarticle.container.center-block
+		.row
+			.col-sm-12
+				.panel.panel-default
+					.panel-heading
+						h2.text-center.text-uppercase Ваши заметки
+					.panel-body
+						section.row
+							.col-sm-8
+								h4.text-center.text-uppercase Самые свежие заметки
+								.postsList
+									+post("первая тестовая заметка","18:00")
+									+post("заметка с очень длинным текстом просто огроменным который никуда не помещается заметка с очень длинным текстом просто огроменным который никуда не помещается","10 минут назад")
+									+post("первая тестовая заметка","30 минут назад")
+									+post("первая тестовая заметка","час")
+									+post("первая тестовая заметка","вчера")
+									+post("первая тестовая заметка","месяц назад")
+							.col-sm-4
+								h4.text-center.text-uppercase Создание новой заметки
+								form
+									.form-group
+										textarea(name="postText" id="postText" placeholder="Новая заметка").form-control
+									.form-group
+										input(type="submit" value="Создать заметку").btn.btn-primary
