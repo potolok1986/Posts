@@ -31,7 +31,7 @@ body
 									+post("первая тестовая заметка","месяц назад")
 							.col-sm-4
 								h4.text-center.text-uppercase Создание новой заметки
-								form
+								form(name="createPost")
 									.form-group
 										textarea(name="postText" id="postText" placeholder="Новая заметка").form-control
 									.form-group
