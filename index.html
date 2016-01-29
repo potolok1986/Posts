@@ -20,12 +20,12 @@
             <section class="row">
               <div class="col-sm-8">
                 <h4 class="text-center text-uppercase">Самые свежие заметки</h4>
-                <div ng-repeat="post in posts" class="postsList">
-                  <div class="post">
+                <div class="postsList">
+                  <div ng-repeat="post in posts" class="post">
                     <p>{{post.text}}</p>
                     <div class="time">
                       <p>Опубликованно в&nbsp;<span>{{post.date}}</span></p>
-                      <button class="btn btn-danger">Удалить</button>
+                      <button ng-click="deletePost()" class="btn btn-danger">Удалить</button>
                     </div>
                   </div>
                 </div>

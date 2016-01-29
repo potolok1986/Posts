@@ -25,13 +25,13 @@ body
 						section.row
 							.col-sm-8
 								h4.text-center.text-uppercase Самые свежие заметки
-								.postsList(ng-repeat="post in posts")
-									.post
+								.postsList
+									.post(ng-repeat="post in posts")
 										p {{post.text}}
 										.time
 											p Опубликованно в&nbsp;
 												span {{post.date}}
-											button.btn.btn-danger Удалить
+											button.btn.btn-danger(ng-click="deletePost()") Удалить
 							.col-sm-4
 								h4.text-center.text-uppercase Создание новой заметки
 								form(name="createPost" ng-submit="addPost()")
