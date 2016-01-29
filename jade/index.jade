@@ -25,21 +25,22 @@ body
 						section.row
 							.col-sm-8
 								h4.text-center.text-uppercase Самые свежие заметки
-								.postsList
-									+post("первая тестовая заметка","18:00")
-									+post("заметка с очень длинным текстом просто огроменным который никуда не помещается заметка с очень длинным текстом просто огроменным который никуда не помещается","10 минут назад")
-									+post("первая тестовая заметка","30 минут назад")
-									+post("первая тестовая заметка","час")
-									+post("первая тестовая заметка","вчера")
-									+post("первая тестовая заметка","месяц назад")
+								.postsList(ng-repeat="post in posts")
+									.post
+										p {{post.text}}
+										.time
+											p Опубликованно в&nbsp;
+												span {{post.date}}
+											button.btn.btn-danger Удалить
 							.col-sm-4
 								h4.text-center.text-uppercase Создание новой заметки
-								form(name="createPost")
+								form(name="createPost" ng-submit="addPost()")
 									.form-group
-										textarea(name="postText" id="postText" ng-model="postText" ng-minlength="10" ng-maxlength="150" placeholder="Новая заметка" required).form-control
+										textarea(name="postText" id="postText" ng-model="postText" ng-minlength="minLength" ng-maxlength="maxLength" placeholder="Новая заметка" required).form-control
 										p(ng-hide="createPost.$invalid") Осталось&nbsp;
 											span(ng-bind="maxLength - postText.length")
 											|&nbsp;символов
-										p(ng-show="createPost.$invalid") Нужно ввести минимум 10 символов
+										p(ng-hide="postText.length > (minLength - 1) || createPost.$error.maxlength") Нужно минимальное количество символов
+										p(ng-show="createPost.$error.maxlength").error Ой слишком ного символов
 									.form-group
 										input(type="submit" value="Создать заметку" ng-disabled="createPost.$invalid").btn.btn-primary
