@@ -36,6 +36,10 @@ body
 								h4.text-center.text-uppercase Создание новой заметки
 								form(name="createPost")
 									.form-group
-										textarea(name="postText" id="postText" placeholder="Новая заметка").form-control
+										textarea(name="postText" id="postText" ng-model="postText" ng-minlength="10" ng-maxlength="150" placeholder="Новая заметка" required).form-control
+										p(ng-hide="createPost.$invalid") Осталось&nbsp;
+											span(ng-bind="maxLength - postText.length")
+											|&nbsp;символов
+										p(ng-show="createPost.$invalid") Нужно ввести минимум 10 символов
 									.form-group
-										input(type="submit" value="Создать заметку").btn.btn-primary
+										input(type="submit" value="Создать заметку" ng-disabled="createPost.$invalid").btn.btn-primary

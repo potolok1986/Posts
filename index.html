@@ -69,10 +69,12 @@
                 <h4 class="text-center text-uppercase">Создание новой заметки</h4>
                 <form name="createPost">
                   <div class="form-group">
-                    <textarea name="postText" id="postText" placeholder="Новая заметка" class="form-control"></textarea>
+                    <textarea name="postText" id="postText" ng-model="postText" ng-minlength="10" ng-maxlength="150" placeholder="Новая заметка" required class="form-control"></textarea>
+                    <p ng-hide="createPost.$invalid">Осталось&nbsp;<span ng-bind="maxLength - postText.length"></span>&nbsp;символов</p>
+                    <p ng-show="createPost.$invalid">Нужно ввести минимум 10 символов</p>
                   </div>
                   <div class="form-group">
-                    <input type="submit" value="Создать заметку" class="btn btn-primary">
+                    <input type="submit" value="Создать заметку" ng-disabled="createPost.$invalid" class="btn btn-primary">
                   </div>
                 </form>
               </div>
