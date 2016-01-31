@@ -3,10 +3,13 @@
   <head lang="ru"></head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="./css/main.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  <script src="./js/moment.min.js"></script>
   <script src="./js/controller.js"></script>
-  <title>Заметки</title>
+  <title>Заметки</title><!--[if lt IE 9]>
+  <link rel="stylesheet" href="https://rawgit.com/codefucker/finalReject/master/reject/reject.css" media="all" />
+  <script type="text/javascript" src="https://rawgit.com/codefucker/finalReject/master/reject/reject.min.js" data-text="Ваш браузер морально устарел и не поддерживает современные технологии, установите любой более современный браузер"></script>
+  <![endif]-->
 </html>
 <body>
   <article ng-controller="PostsController" class="container center-block">
@@ -21,12 +24,15 @@
               <div class="col-sm-8">
                 <h4 class="text-center text-uppercase">Самые свежие заметки</h4>
                 <div class="postsList">
-                  <div ng-repeat="post in posts | orderBy:'+':true " class="post">
+                  <div ng-repeat="post in posts.slice().reverse()" class="post">
                     <p>{{post.text}}</p>
                     <div class="time">
-                      <p>Опубликованно в&nbsp;<span>{{post.date}}</span></p>
+                      <p>Опубликованно&nbsp;<span>{{post.dateStr}}</span></p>
                       <button ng-click="deletePost()" class="btn btn-danger">Удалить</button>
                     </div>
+                  </div>
+                  <div ng-hide="posts.length" class="post">
+                    <p>Вы пока не создали ни одной заметки</p>
                   </div>
                 </div>
               </div>
@@ -36,11 +42,12 @@
                   <div class="form-group">
                     <textarea name="postText" id="postText" ng-model="postText" ng-minlength="minLength" ng-maxlength="maxLength" placeholder="Новая заметка" required class="form-control"></textarea>
                     <p ng-hide="createPost.$invalid">Осталось&nbsp;<span ng-bind="maxLength - postText.length"></span>&nbsp;символов</p>
-                    <p ng-hide="postText.length &gt; (minLength - 1) || createPost.$error.maxlength">Нужно минимальное количество символов</p>
+                    <p ng-hide="postText.length &gt; (minLength - 1) || createPost.$error.maxlength">Нужно ввести минимальное число символов ({{minLength}})</p>
                     <p ng-show="createPost.$error.maxlength" class="error">Ой слишком ного символов</p>
                   </div>
                   <div class="form-group">
-                    <input type="submit" value="Создать заметку" ng-disabled="createPost.$invalid" class="btn btn-primary">
+                    <input type="submit" id="btnSubmit" value="Создать заметку" ng-disabled="createPost.$invalid" class="btn btn-primary">
+                    <label>(Ctrl + Enter)</label>
                   </div>
                 </form>
               </div>
