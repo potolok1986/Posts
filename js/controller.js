@@ -53,8 +53,8 @@ var MyLocalStorage = {
 	dateTransform: function (date) {
 		var today = new moment(),
 			dateStorage = new moment(date),
-			dateString = "";
-		var result = today.diff(dateStorage, "minutes");
+			dateString = "",
+			result = today.diff(dateStorage, "minutes");
 		for (var time in timeList) {
 			if (result >= time) {
 				timeList[time] === "max" ? dateString = moment(date).calendar() : dateString = timeList[time]
@@ -63,13 +63,13 @@ var MyLocalStorage = {
 		return dateString;
 	},
 	addPostOnKeys: function () {
-		var codes = ["17", "13"];
-		var pressed = {};
+		var buttonCod = ["17", "13"],
+			pressed = {};
 		document.onkeydown = function (e) {
 			e = e || window.event;
 			pressed[e.keyCode] = true;
-			for (var i = 0; i < codes.length; i++) {
-				if (!pressed[codes[i]]) {
+			for (var i = 0; i < buttonCod.length; i++) {
+				if (!pressed[buttonCod[i]]) {
 					return;
 				}
 			}
