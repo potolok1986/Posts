@@ -37,7 +37,7 @@ var MyLocalStorage = {
 	},
 	addToStorage: function ($scope) {
 		var newPost = {
-			"text": $scope.postText,
+			"text": $scope.postText.replace(/([^>])\n/g, '$1<br/>'),
 			date: new moment(),
 			dateStr: ""
 		};
@@ -57,7 +57,7 @@ var MyLocalStorage = {
 		var result = today.diff(dateStorage, "minutes");
 		for (var time in timeList) {
 			if (result >= time) {
-				time === "max" ? dateString = moment(date).calendar() : dateString = timeList[time]
+				timeList[time] === "max" ? dateString = moment(date).calendar() : dateString = timeList[time]
 			}
 		}
 		return dateString;
@@ -107,7 +107,7 @@ postsCtrl = function ($scope, $interval) {
 
 };
 angular
-	.module("postsApp", [])
+	.module("postsApp", ['ngSanitize'])
 	.controller("PostsController", postsCtrl);
 
 
